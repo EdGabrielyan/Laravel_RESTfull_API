@@ -59,7 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return Attribute::make(
             get: fn (string $value) => Str::ucfirst($value),
-            set: fn (string $value) => strtolower($value),
+            set: fn (string $value) => Str::lower($value),
         );
     }
 

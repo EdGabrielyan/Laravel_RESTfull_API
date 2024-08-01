@@ -2,6 +2,7 @@
 
 namespace App\Http\Action\User;
 
+use App\Events\RegisterProcessed;
 use App\Http\Repository\User\Read\UserReadRepositoryInterface;
 use App\Http\Repository\User\Write\UserWriteRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -18,7 +19,9 @@ class UserAction
 
     public function storeData(Collection $data): EloquentCollection
     {
-        return $this->userWriteRepository->save($data);
+        $result = $this->userWriteRepository->save($data);
+        RegisterProcessed::dispatch($result->get('email'), $result->get('name'));
+        return $result;
     }
 
     public function getData(Collection $data): EloquentCollection

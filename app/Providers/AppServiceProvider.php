@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\RegisterProcessed;
 use App\Http\Repository\Product\Read\ProductReadRepository;
 use App\Http\Repository\Product\Read\ProductReadRepositoryInterface;
 use App\Http\Repository\Product\Write\ProductWriteRepository;
@@ -10,8 +11,9 @@ use App\Http\Repository\User\Read\UserReadRepository;
 use App\Http\Repository\User\Read\UserReadRepositoryInterface;
 use App\Http\Repository\User\Write\UserWriteRepository;
 use App\Http\Repository\User\Write\UserWriteRepositoryInterface;
+use App\Listeners\SendRegisterNotification;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -43,8 +45,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-//        Passport::tokensExpireIn(now()->addMinutes(15));
-//        Passport::refreshTokensExpireIn(now()->addDays(30));
-//        Passport::personalAccessTokensExpireIn(now()->addMonths(6));
+        Event::listen(
+            RegisterProcessed::class,
+            SendRegisterNotification::class,
+        );
     }
 }

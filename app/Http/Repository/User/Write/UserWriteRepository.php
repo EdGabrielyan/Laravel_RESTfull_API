@@ -11,7 +11,7 @@ class UserWriteRepository implements UserWriteRepositoryInterface
 {
     public function save(Collection $data): EloquentCollection
     {
-        $user = User::create($data);
+        $user = User::create($data->toArray());
 
         return EloquentCollection::make($user);
     }

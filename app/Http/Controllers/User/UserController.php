@@ -57,8 +57,10 @@ class UserController extends Controller
     public function index(UserPaginationRequest $request): JsonResponse
     {
         $data = $request->collect();
+        $offset = $request->get('offset');
+        $limit = $request->get('limit');
         try {
-            return Cache::rememberForever("index $request->get(offset) $request->get(limit)",
+            return Cache::rememberForever("userIndexOf{$offset}Li{$limit}",
                 fn() => response()->json($this->userAction->getData($data)));
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());

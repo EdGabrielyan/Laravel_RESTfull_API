@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\RegisterProcessed;
+use App\Events\UserRemoveFromCacheProcessed;
 use App\Http\Repository\Product\Read\ProductReadRepository;
 use App\Http\Repository\Product\Read\ProductReadRepositoryInterface;
 use App\Http\Repository\Product\Write\ProductWriteRepository;
@@ -12,6 +13,8 @@ use App\Http\Repository\User\Read\UserReadRepositoryInterface;
 use App\Http\Repository\User\Write\UserWriteRepository;
 use App\Http\Repository\User\Write\UserWriteRepositoryInterface;
 use App\Listeners\SendRegisterNotification;
+use App\Models\User;
+use App\Observers\UserObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -49,5 +52,7 @@ class AppServiceProvider extends ServiceProvider
             RegisterProcessed::class,
             SendRegisterNotification::class,
         );
+
+        User::observe(UserObserver::class);
     }
 }

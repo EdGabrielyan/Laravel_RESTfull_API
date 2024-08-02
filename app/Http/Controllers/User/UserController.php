@@ -13,6 +13,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
@@ -57,7 +58,8 @@ class UserController extends Controller
     {
         $data = $request->collect();
         try {
-            return response()->json($this->userAction->getData($data));
+            return Cache::rememberForever("index $request->get(offset) $request->get(limit)",
+                fn() => response()->json($this->userAction->getData($data)));
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
             throw new NotFoundException;

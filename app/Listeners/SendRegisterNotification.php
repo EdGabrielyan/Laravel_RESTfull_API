@@ -4,7 +4,6 @@ namespace App\Listeners;
 
 use App\Events\RegisterProcessed;
 use App\Jobs\RegisterMailJob;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendRegisterNotification
 {

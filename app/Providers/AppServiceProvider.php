@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Events\RegisterProcessed;
-use App\Events\UserRemoveFromCacheProcessed;
 use App\Http\Repository\Product\Read\ProductReadRepository;
 use App\Http\Repository\Product\Read\ProductReadRepositoryInterface;
 use App\Http\Repository\Product\Write\ProductWriteRepository;
@@ -12,6 +11,8 @@ use App\Http\Repository\User\Read\UserReadRepository;
 use App\Http\Repository\User\Read\UserReadRepositoryInterface;
 use App\Http\Repository\User\Write\UserWriteRepository;
 use App\Http\Repository\User\Write\UserWriteRepositoryInterface;
+use App\Http\Repository\UserCache\Write\UserCacheWriteRepository;
+use App\Http\Repository\UserCache\Write\UserCacheWriteRepositoryInterface;
 use App\Listeners\SendRegisterNotification;
 use App\Models\User;
 use App\Observers\UserObserver;
@@ -40,6 +41,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             UserReadRepositoryInterface::class,
             UserReadRepository::class
+        );
+        $this->app->bind(
+          UserCacheWriteRepositoryInterface::class,
+          UserCacheWriteRepository::class
         );
     }
 

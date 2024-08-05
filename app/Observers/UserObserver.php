@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class UserObserver
 {
@@ -22,7 +23,6 @@ class UserObserver
         foreach ($keys as $key) {
             Cache::forget($key);
         }
-
 
         DB::table('cache_keys')->whereIn('key', $keys)->delete();
     }
@@ -43,7 +43,6 @@ class UserObserver
             Cache::forget($key);
         }
 
-
         DB::table('cache_keys')->whereIn('key', $keys)->delete();
     }
 
@@ -62,7 +61,6 @@ class UserObserver
         foreach ($keys as $key) {
             Cache::forget($key);
         }
-
 
         DB::table('cache_keys')->whereIn('key', $keys)->delete();
     }

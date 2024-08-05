@@ -6,6 +6,7 @@ use App\Enums\Success\SuccessMessages;
 use App\Exceptions\NotFoundException;
 use App\Exceptions\User\UserNotRegisteredException;
 use App\Http\Action\User\UserAction;
+use App\Http\Action\User\UserCacheAction;
 use App\Http\Requests\User\UserPaginationRequest;
 use App\Http\Requests\User\UserRequest;
 use App\Http\Requests\User\UserUpdateRequest;
@@ -20,7 +21,8 @@ use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
     public function __construct(
-        protected UserAction $userAction
+        protected UserAction $userAction,
+        protected UserCacheAction $userCacheAction,
     )
     {
     }
@@ -62,13 +64,8 @@ class UserController extends Controller
         $limit = $data->get('limit');
         $prefix = "user_index";
         $key = "{$prefix}_of_{$offset}_li_{$limit}";
-        if (!Cache::has($key)) {
-            DB::table('cache_keys')->insert([
-                'prefix' => $prefix,
-                'key' => $key,
-            ]);
-        }
         try {
+            $this->userCacheAction->insertIntoCache($key, $prefix);
             return Cache::rememberForever($key,
                 fn() => response()->json($this->userAction->getData($data)));
         } catch (ModelNotFoundException $e) {

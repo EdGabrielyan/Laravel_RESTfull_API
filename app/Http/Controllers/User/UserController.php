@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
@@ -58,18 +57,10 @@ class UserController extends Controller
     public function index(UserPaginationRequest $request): JsonResponse
     {
         $data = $request->collect();
-        $offset = $data->get('offset');
-        $limit = $data->get('limit');
-        $prefix = "user_index";
-        $key = "{$prefix}_of_{$offset}_li_{$limit}";
-        if (!Cache::has($key)) {
-            DB::table('cache_keys')->insert([
-                'prefix' => $prefix,
-                'key' => $key,
-            ]);
-        }
+        $offset = $request->get('offset');
+        $limit = $request->get('limit');
         try {
-            return Cache::rememberForever($key,
+            return Cache::rememberForever("userIndexOf{$offset}Li{$limit}",
                 fn() => response()->json($this->userAction->getData($data)));
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());

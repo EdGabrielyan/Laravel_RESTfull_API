@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class UserObserver
 {
@@ -12,7 +13,19 @@ class UserObserver
      */
     public function created(User $user): void
     {
-        Cache::forget('userIndexOf');
+        $keys = DB::table('cache_keys')
+            ->where('prefix', 'user_index')
+            ->select('key')
+            ->get()
+            ->pluck('key')
+            ->toArray();
+
+        foreach ($keys as $key) {
+            Cache::forget($key);
+        }
+
+
+        DB::table('cache_keys')->whereIn('key', $keys)->delete();
     }
 
     /**
@@ -20,7 +33,19 @@ class UserObserver
      */
     public function updated(User $user): void
     {
-        Cache::forget('userIndexOf');
+        $keys = DB::table('cache_keys')
+            ->where('prefix', 'user_index')
+            ->select('key')
+            ->get()
+            ->pluck('key')
+            ->toArray();
+
+        foreach ($keys as $key) {
+            Cache::forget($key);
+        }
+
+
+        DB::table('cache_keys')->whereIn('key', $keys)->delete();
     }
 
     /**
@@ -28,6 +53,18 @@ class UserObserver
      */
     public function deleted(User $user): void
     {
-        Cache::forget('userIndexOf.*');
+        $keys = DB::table('cache_keys')
+            ->where('prefix', 'user_index')
+            ->select('key')
+            ->get()
+            ->pluck('key')
+            ->toArray();
+
+        foreach ($keys as $key) {
+            Cache::forget($key);
+        }
+
+
+        DB::table('cache_keys')->whereIn('key', $keys)->delete();
     }
 }

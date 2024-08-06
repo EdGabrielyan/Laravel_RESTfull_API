@@ -15,8 +15,6 @@ class UserObserver
     {
         $keys = DB::table('cache_keys')
             ->where('prefix', 'user_index')
-            ->select('key')
-            ->get()
             ->pluck('key')
             ->toArray();
 
@@ -34,8 +32,6 @@ class UserObserver
     {
         $keys = DB::table('cache_keys')
             ->where('prefix', 'user_index')
-            ->select('key')
-            ->get()
             ->pluck('key')
             ->toArray();
 
@@ -53,8 +49,6 @@ class UserObserver
     {
         $keys = DB::table('cache_keys')
             ->where('prefix', 'user_index')
-            ->select('key')
-            ->get()
             ->pluck('key')
             ->toArray();
 

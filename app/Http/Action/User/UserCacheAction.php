@@ -3,12 +3,13 @@
 namespace App\Http\Action\User;
 
 use App\Http\Repository\UserCache\Write\UserCacheWriteRepository;
+use App\Http\Repository\UserCache\Write\UserCacheWriteRepositoryInterface;
 use Illuminate\Support\Facades\Cache;
 
 class UserCacheAction
 {
     public function __construct(
-        protected UserCacheWriteRepository $userCacheRepository,
+        protected UserCacheWriteRepositoryInterface $userCacheRepository,
     )
     {
     }

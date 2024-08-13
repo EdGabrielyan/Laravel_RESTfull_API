@@ -7,6 +7,7 @@ use App\Http\Repository\User\Read\UserReadRepositoryInterface;
 use App\Http\Repository\User\Write\UserWriteRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class UserAction
 {
@@ -32,6 +33,15 @@ class UserAction
     public function getDataById(int $id): EloquentCollection
     {
         return $this->userReadRepository->getById($id);
+    }
+
+    public function getDataByName(string $name): EloquentCollection
+    {
+        if (Str::length($name) <= 3)
+        {
+            return EloquentCollection::make();
+        }
+        return $this->userReadRepository->getByName($name);
     }
 
     public function updateData(Collection $data): EloquentCollection

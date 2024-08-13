@@ -11,6 +11,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('/register', [UserController::class, 'register']);
     Route::get('/{user}', [UserController::class, 'show']);
     Route::get('/', [UserController::class, 'index']);
+    Route::get('/name/{name}', [UserController::class, 'search']);
 });
 
 Route::group(['middleware' => ['auth:api']], function () {

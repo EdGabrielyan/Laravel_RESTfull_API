@@ -10,12 +10,19 @@ class UserReadRepository implements UserReadRepositoryInterface
 {
     public function get(Collection $data): EloquentCollection
     {
-        return User::Has('products')->offset($data->get('offset'))->limit($data->get('limit'))->get();
+        return User::Has('products')->with('products:id,name,user_id')->offset($data->get('offset'))->limit($data->get('limit'))->get();
     }
 
     public function getById(int $id): EloquentCollection
     {
-        $user = User::Has('products')->findOrFail($id);
+        $user = User::Has('products')->with('products:id,name,user_id')->findOrFail($id);
+
+        return EloquentCollection::make($user);
+    }
+
+    public function getByName(string $name): EloquentCollection
+    {
+        $user = User::where('name', 'like', "___{$name}%")->get();
 
         return EloquentCollection::make($user);
     }

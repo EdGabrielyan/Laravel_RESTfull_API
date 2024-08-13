@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
     public function __construct(
-        protected UserAction $userAction,
+        protected UserAction      $userAction,
         protected UserCacheAction $userCacheAction,
     )
     {
@@ -47,6 +47,16 @@ class UserController extends Controller
     {
         try {
             return response()->json($this->userAction->getDataById($id));
+        } catch (ModelNotFoundException $e) {
+            Log::error($e->getMessage());
+            throw new NotFoundException;
+        }
+    }
+
+    public function search(string $name): JsonResponse
+    {
+        try {
+            return response()->json($this->userAction->getDataByName($name));
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
             throw new NotFoundException;

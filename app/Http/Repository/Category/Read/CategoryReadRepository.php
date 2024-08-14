@@ -10,14 +10,16 @@ class CategoryReadRepository implements CategoryReadRepositoryInterface
 {
     public function get(Collection $data): EloquentCollection
     {
-        return Category::offset($data->get('offset'))
+        return Category::has('products')
+            ->with('products')
+            ->offset($data->get('offset'))
             ->limit($data->get('limit'))
             ->get();
     }
 
     public function getById(int $id): EloquentCollection
     {
-        $product = Category::findOrFail($id);
+        $product = Category::has('products')->with('products')->findOrFail($id);
 
         return EloquentCollection::make($product);
     }

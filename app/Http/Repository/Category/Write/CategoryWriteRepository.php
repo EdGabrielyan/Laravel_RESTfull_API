@@ -13,9 +13,20 @@ class CategoryWriteRepository implements CategoryWriteRepositoryInterface
         $category = Category::create([
             'name' => $data->get('name')
         ]);
-
-        //$category->products()->attach($data->get('id'));
-
         return EloquentCollection::make($category);
+    }
+
+    public function delete(int $id)
+    {
+        $category = Category::where('id', $id)->firstOrFail();
+        $category->delete();
+    }
+
+    public function update(Collection $data, int $id): EloquentCollection
+    {
+        $product = Category::where('id', $id)->firstOrFail();
+        $product->update(['name' => $data->get('name')]);
+
+        return EloquentCollection::make($product);
     }
 }

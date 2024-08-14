@@ -12,8 +12,13 @@ class Category extends Model
 
     protected $fillable = ['name'];
 
+    protected $casts = [
+        'created_at' => 'date:Y-m-d',
+        'updated_at' => 'date:Y-m-d',
+    ];
+
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'product_category', 'category_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'product_category');
     }
 }

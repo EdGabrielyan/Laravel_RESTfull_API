@@ -24,8 +24,6 @@ class Product extends Model
         'deleted_at'
     ];
 
-    protected $table = 'products';
-
     public function scopeType(Builder $query, int $type): void
     {
         switch ($type) {
@@ -39,11 +37,11 @@ class Product extends Model
 
     public function user(): belongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
     }
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class,'product_category', 'product_id', 'category_id');
+        return $this->belongsToMany(Category::class,'product_category');
     }
 }

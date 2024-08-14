@@ -35,7 +35,7 @@ class Product extends Model
         }
     }
 
-    public function user(): belongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

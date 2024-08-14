@@ -15,7 +15,7 @@ class ProductWriteRepository implements ProductWriteRepositoryInterface
             'user_id' => auth()->id()
         ]);
 
-        //$product->categories()->attach($data->get('categories'));
+        $product->categories()->attach($data->get('category_id'));
 
         return EloquentCollection::make($product);
     }

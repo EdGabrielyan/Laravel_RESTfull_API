@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use App\Events\RegisterProcessed;
+use App\Http\Repository\Category\Read\CategoryReadRepository;
+use App\Http\Repository\Category\Read\CategoryReadRepositoryInterface;
+use App\Http\Repository\Category\Write\CategoryWriteRepository;
+use App\Http\Repository\Category\Write\CategoryWriteRepositoryInterface;
 use App\Http\Repository\Product\Read\ProductReadRepository;
 use App\Http\Repository\Product\Read\ProductReadRepositoryInterface;
 use App\Http\Repository\Product\Write\ProductWriteRepository;
@@ -43,8 +47,16 @@ class AppServiceProvider extends ServiceProvider
             UserReadRepository::class
         );
         $this->app->bind(
-          UserCacheWriteRepositoryInterface::class,
-          UserCacheWriteRepository::class
+            UserCacheWriteRepositoryInterface::class,
+            UserCacheWriteRepository::class
+        );
+        $this->app->bind(
+            CategoryWriteRepositoryInterface::class,
+            CategoryWriteRepository::class
+        );
+        $this->app->bind(
+            CategoryReadRepositoryInterface::class,
+            CategoryReadRepository::class
         );
     }
 

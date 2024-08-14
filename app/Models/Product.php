@@ -6,6 +6,7 @@ use App\Enums\Product\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
@@ -39,5 +40,10 @@ class Product extends Model
     public function user(): belongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class,'product_category', 'product_id', 'category_id');
     }
 }

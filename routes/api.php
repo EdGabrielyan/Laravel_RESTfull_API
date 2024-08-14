@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,10 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::group(['prefix' => 'product'], function () {
         Route::apiResource('/', ProductController::class)->parameters(['' => 'product']);
+    });
+
+    Route::group(['prefix' => 'category'], function () {
+        Route::apiResource('/', CategoryController::class)->parameters(['' => 'category']);
     });
 
     Route::post('/logout', [AuthController::class, 'logout']);

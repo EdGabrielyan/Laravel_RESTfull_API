@@ -52,7 +52,7 @@ class CategoryController
     /**
      * @throws NotFoundException
      */
-    public function show(string $id): JsonResponse
+    public function show(int $id): JsonResponse
     {
         try {
             return response()->json($this->action->getDataById($id));

@@ -9,4 +9,5 @@ interface CategoryReadRepositoryInterface
 {
     public function get(Collection $data): EloquentCollection;
     public function getById(int $id): EloquentCollection;
+    public function searchData(Collection $data): EloquentCollection;
 }

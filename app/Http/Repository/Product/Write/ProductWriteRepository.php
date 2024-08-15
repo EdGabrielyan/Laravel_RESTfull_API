@@ -2,7 +2,6 @@
 
 namespace App\Http\Repository\Product\Write;
 
-use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
@@ -16,9 +15,7 @@ class ProductWriteRepository implements ProductWriteRepositoryInterface
             'user_id' => auth()->id()
         ]);
 
-        $category_id = Category::findOrFail($data->get('category_id'));
-
-        $product->categories()->attach($category_id);
+        $product->categories()->attach($data->get('category_id'));
 
         return EloquentCollection::make($product);
     }

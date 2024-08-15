@@ -11,8 +11,7 @@ class ProductReadRepository implements ProductReadRepositoryInterface
     public function get(Collection $data): EloquentCollection
     {
         return Product::type($data->get('type', 0))
-            ->with('user')
-            ->with('categories:id,name')
+            ->with(['user', 'categories:id,name'])
             ->offset($data->get('offset'))
             ->limit($data->get('limit'))
             ->get();
@@ -20,7 +19,7 @@ class ProductReadRepository implements ProductReadRepositoryInterface
 
     public function getById(int $id): EloquentCollection
     {
-        $product = Product::with('user')->with('categories:id,name')->findOrFail($id);
+        $product = Product::with(['user', 'categories:id,name'])->findOrFail($id);
 
         return EloquentCollection::make($product);
     }

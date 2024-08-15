@@ -15,7 +15,10 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/name/{name}', [UserController::class, 'search']);
 });
 
-Route::apiResource('/category', CategoryController::class);
+Route::group(['prefix' => 'category'], function () {
+    Route::get('/data', [CategoryController::class, 'search']);
+    Route::apiResource('/', CategoryController::class)->parameters(['' => 'category']);
+});
 
 Route::group(['middleware' => ['auth:api']], function () {
 

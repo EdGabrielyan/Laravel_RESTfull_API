@@ -89,4 +89,18 @@ class CategoryController
             throw new NotFoundException();
         }
     }
+
+    /**
+     * @throws NotFoundException
+     */
+    public function search(CategoryPaginationRequest $request): JsonResponse
+    {
+        $data = $request->collect();
+        try {
+            return response()->json($this->action->getCategoryData($data));
+        } catch (ModelNotFoundException $e) {
+            Log::error($e->getMessage());
+            throw new NotFoundException();
+        }
+    }
 }

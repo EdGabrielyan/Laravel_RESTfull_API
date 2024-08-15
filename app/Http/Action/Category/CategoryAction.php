@@ -41,4 +41,9 @@ class CategoryAction
     {
         return $this->categoryWriteRepository->delete($id);
     }
+
+    public function getCategoryData(Collection $data): EloquentCollection
+    {
+        return $this->categoryReadRepository->searchData($data);
+    }
 }

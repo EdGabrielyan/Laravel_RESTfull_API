@@ -21,6 +21,11 @@ class ProductRequest extends FormRequest
                 'max:50',
                 Rule::unique('products')->ignore($this->product),
             ],
+            'category_id' => [
+              'required',
+              'integer',
+              'min:1'
+            ],
         ];
     }
 }

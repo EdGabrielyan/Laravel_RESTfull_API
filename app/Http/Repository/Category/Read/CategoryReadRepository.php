@@ -24,7 +24,7 @@ class CategoryReadRepository implements CategoryReadRepositoryInterface
         return EloquentCollection::make($product);
     }
 
-    public function searchData(Collection $data): EloquentCollection
+    public function getData(Collection $data): EloquentCollection
     {
         return Category::offset($data->get('offset'))->limit($data->get('limit'))->get();
     }

@@ -16,7 +16,7 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::group(['prefix' => 'category'], function () {
-    Route::get('/data', [CategoryController::class, 'search']);
+    Route::get('/data', [CategoryController::class, 'getData']);
     Route::apiResource('/', CategoryController::class)->parameters(['' => 'category']);
 });
 
@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
     Route::group(['prefix' => 'product'], function () {
-        Route::apiResource('/', ProductController::class)->parameters(['' => 'product']);
+        Route::apiResource('/', ProductController::class, ['as' => 'product'])->parameters(['' => 'product']);
     });
 
     Route::post('/logout', [AuthController::class, 'logout']);

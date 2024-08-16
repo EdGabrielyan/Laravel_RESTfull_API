@@ -19,7 +19,6 @@ class ProductPaginationRequest extends FormRequest
                 'integer',
                 'min:0',
             ],
-
             'limit' => [
                 'required',
                 'integer',

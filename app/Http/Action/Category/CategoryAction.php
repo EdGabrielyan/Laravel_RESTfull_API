@@ -44,6 +44,6 @@ class CategoryAction
 
     public function getCategoryData(Collection $data): EloquentCollection
     {
-        return $this->categoryReadRepository->searchData($data);
+        return $this->categoryReadRepository->getData($data);
     }
 }

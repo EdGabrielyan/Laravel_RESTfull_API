@@ -6,9 +6,8 @@ use App\Enums\Status\StatusCodes;
 use App\Enums\Success\SuccessMessages;
 use App\Exceptions\NotFoundException;
 use App\Http\Action\Product\ProductAction;
-use App\Http\Requests\Product\ProductCreateRequest;
+use App\Http\Requests\Product\ProductRequest;
 use App\Http\Requests\Product\ProductPaginationRequest;
-use App\Http\Requests\Product\ProductUpdateRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -41,7 +40,7 @@ class ProductController extends Controller
     /**
      * @throws NotFoundException
      */
-    public function store(ProductCreateRequest $request): JsonResponse
+    public function store(ProductRequest $request): JsonResponse
     {
         $data = $request->collect();
         try {
@@ -68,7 +67,7 @@ class ProductController extends Controller
     /**
      * @throws NotFoundException
      */
-    public function update(ProductUpdateRequest $request, int $id): JsonResponse
+    public function update(ProductRequest $request, int $id): JsonResponse
     {
         $data = $request->collect();
         try {

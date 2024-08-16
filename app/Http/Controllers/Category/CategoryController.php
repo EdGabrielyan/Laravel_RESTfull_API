@@ -93,7 +93,7 @@ class CategoryController
     /**
      * @throws NotFoundException
      */
-    public function search(CategoryPaginationRequest $request): JsonResponse
+    public function getData(CategoryPaginationRequest $request): JsonResponse
     {
         $data = $request->collect();
         try {

@@ -5,6 +5,7 @@ namespace App\Http\Repository\Product\Write;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class ProductWriteRepository implements ProductWriteRepositoryInterface
 {
@@ -30,6 +31,8 @@ class ProductWriteRepository implements ProductWriteRepositoryInterface
     {
         $product = Product::where([['id', $id], ['user_id', auth()->id()]])->firstOrFail();
         $product->update(['name' => $data->get('name')]);
+
+        DB::table('product_category')->where('product_id', $id)->update(['category_id' => $data->get('category_id')]);
 
         return EloquentCollection::make($product);
     }

@@ -18,12 +18,9 @@ use App\Http\Repository\User\Write\UserWriteRepositoryInterface;
 use App\Http\Repository\UserCache\Write\UserCacheWriteRepository;
 use App\Http\Repository\UserCache\Write\UserCacheWriteRepositoryInterface;
 use App\Listeners\SendRegisterNotification;
-use App\Models\Product;
 use App\Models\User;
 use App\Observers\UserObserver;
-use App\Policies\ProductPolicy;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -74,7 +71,5 @@ class AppServiceProvider extends ServiceProvider
         );
 
         User::observe(UserObserver::class);
-
-        Gate::policy(Product::class, ProductPolicy::class);
     }
 }

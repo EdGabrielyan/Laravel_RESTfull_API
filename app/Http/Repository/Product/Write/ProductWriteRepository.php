@@ -29,7 +29,7 @@ class ProductWriteRepository implements ProductWriteRepositoryInterface
 
     public function update(Collection $data, int $id): EloquentCollection
     {
-        $product = Product::where([['id', $id], ['user_id', auth()->id()]])->firstOrFail();
+        $product = Product::where('id', $id)->firstOrFail();
         $product->update(['name' => $data->get('name')]);
 
         DB::table('product_category')->where('product_id', $id)->update(['category_id' => $data->get('category_id')]);

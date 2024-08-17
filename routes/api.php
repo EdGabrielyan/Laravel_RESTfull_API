@@ -15,16 +15,16 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/name/{name}', [UserController::class, 'search']);
 });
 
-Route::group(['prefix' => 'category'], function () {
-    Route::get('/data', [CategoryController::class, 'getData']);
-    Route::apiResource('/', CategoryController::class)->parameters(['' => 'category']);
-});
-
 Route::group(['middleware' => ['auth:api']], function () {
 
     Route::group(['prefix' => 'user'], function () {
         Route::delete('/', [UserController::class, 'destroy']);
         Route::put('/', [UserController::class, 'update']);
+    });
+
+    Route::group(['prefix' => 'category'], function () {
+        Route::get('/data', [CategoryController::class, 'getData']);
+        Route::apiResource('/', CategoryController::class)->parameters(['' => 'category']);
     });
 
     Route::group(['prefix' => 'product'], function () {

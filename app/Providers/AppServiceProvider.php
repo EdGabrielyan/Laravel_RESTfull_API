@@ -30,6 +30,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+
+    }
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
         $this->app->bind(
             ProductWriteRepositoryInterface::class,
             ProductWriteRepository::class
@@ -58,13 +66,7 @@ class AppServiceProvider extends ServiceProvider
             CategoryReadRepositoryInterface::class,
             CategoryReadRepository::class
         );
-    }
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
         Event::listen(
             RegisterProcessed::class,
             SendRegisterNotification::class,

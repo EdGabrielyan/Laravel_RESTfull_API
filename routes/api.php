@@ -6,10 +6,10 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 
 Route::group(['prefix' => 'user'], function () {
-    Route::post('/register', [UserController::class, 'register']);
+    Route::post('/registration', [UserController::class, 'register'])->name('api.user.registration');
     Route::get('/{user}', [UserController::class, 'show']);
     Route::get('/', [UserController::class, 'index']);
     Route::get('/name/{name}', [UserController::class, 'search']);

@@ -28,6 +28,7 @@ class AuthRequest extends FormRequest
                 'string',
                 'email',
                 'max:50',
+                'exists:users,email'
             ],
             'password' => [
                 'required',

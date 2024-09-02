@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Exceptions\NotFoundException;
 use App\Http\Action\Auth\AuthAction;
 use App\Http\Requests\Auth\AuthRequest;
 use Illuminate\Http\JsonResponse;
@@ -15,6 +16,9 @@ class AuthController extends Controller
     {
     }
 
+    /**
+     * @throws NotFoundException
+     */
     public function login(AuthRequest $request): JsonResponse
     {
         $data = $request->collect();

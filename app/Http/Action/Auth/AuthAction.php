@@ -16,7 +16,7 @@ class AuthAction
     {
 
         if (Auth::attempt($data->toArray())) {
-            $token = auth()->user()->createToken('auth_token')->accessToken;
+            $token = auth()->user()->createToken('auth_token')->plainTextToken;
             return EloquentCollection::make(['token' => $token]);
         } else {
             throw new NotFoundException;

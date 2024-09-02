@@ -15,7 +15,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/name/{name}', [UserController::class, 'search']);
 });
 
-Route::group(['middleware' => ['auth:api']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::group(['prefix' => 'user'], function () {
         Route::delete('/', [UserController::class, 'destroy']);

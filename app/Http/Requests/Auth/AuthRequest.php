@@ -3,7 +3,9 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
 class AuthRequest extends FormRequest
 {
@@ -38,4 +40,11 @@ class AuthRequest extends FormRequest
             ]
         ];
     }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw ValidationException::withMessages([
+            'login' => $validator->errors()->first(),
+        ]);
+     }
 }

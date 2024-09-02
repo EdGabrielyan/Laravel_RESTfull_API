@@ -3,19 +3,24 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\WithFaker;
 use PHPUnit\Framework\Attributes\Group;
 use Tests\TestCase;
 
 #[Group('Auth')]
 class RegistrationTest extends TestCase
 {
+    use WithFaker;
+
     private string $url = 'api.user.registration';
 
     public function test_success_registration(): void
     {
+        $email = $this->faker()->email();
+
         $response = $this->postJson(route($this->url), [
             'name' => 'name',
-            'email' => 'testEmailExample@gmail.com',
+            'email' => $email,
             'password' => 'password'
         ]);
 
@@ -23,11 +28,11 @@ class RegistrationTest extends TestCase
 
         $this->assertDatabaseHas(User::class, [
             'name' => 'name',
-            'email' => 'testEmailExample@gmail.com',
+            'email' => $email,
         ]);
     }
 
-    public function test_fail_registration_by_existing_email(): void
+    public function test_fail_registration_with_existing_email(): void
     {
         $user = User::factory()->create();
 

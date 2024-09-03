@@ -31,5 +31,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::apiResource('/', ProductController::class, ['as' => 'product'])->parameters(['' => 'product']);
     });
 
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
 });

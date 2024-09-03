@@ -30,7 +30,7 @@ class AuthAction
 
     public function logout()
     {
-        auth()->user()->token()->delete();
+        auth()->user()->currentAccessToken()?->delete();
         return response()->json(['message' => 'Successfully logged out']);
     }
 }

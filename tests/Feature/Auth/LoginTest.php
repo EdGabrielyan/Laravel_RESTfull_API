@@ -16,8 +16,8 @@ class LoginTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->postJson(route($this->url), [
-           'email' => $user->email,
-           'password' => 'password',
+            'email' => $user->email,
+            'password' => 'password',
         ]);
 
         $response->assertOk();
@@ -28,8 +28,32 @@ class LoginTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->postJson(route($this->url), [
-           'email' => $user->email,
-           'password' => 'invalid_password',
+            'email' => $user->email,
+            'password' => 'invalid_password',
+        ]);
+
+        $response->assertUnprocessable()
+            ->assertInvalid('login');
+    }
+
+    public function test_fail_with_invalid_email(): void
+    {
+        User::factory()->create();
+
+        $response = $this->postJson(route($this->url), [
+            'email' => 'invalid_email',
+            'password' => 'password',
+        ]);
+
+        $response->assertUnprocessable()
+            ->assertInvalid('login');
+    }
+
+    public function test_fail_with_not_existing_email(): void
+    {
+        $response = $this->postJson(route($this->url), [
+            'email' => 'invalid@mail.ru',
+            'password' => 'password',
         ]);
 
         $response->assertUnprocessable()

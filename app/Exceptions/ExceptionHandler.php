@@ -12,37 +12,27 @@ use Throwable;
 
 class ExceptionHandler
 {
-
-    private static array $ignore = [
-        ValidationException::class,
-        AuthenticationException::class,
-    ];
-
     public static function handle(Exceptions $exception): Exceptions
     {
         return $exception
             ->render(self::HandleNotFound(...))
             ->render(function (Throwable $exception) {
-                if (self::checkIgnore($exception)) {
-                    return false;
+                if ($exception instanceof ValidationException) {
+                    return response()->json([
+                        $exception->getMessage()
+                    ], Response::HTTP_UNPROCESSABLE_ENTITY);
+                }
+                elseif ($exception instanceof AuthenticationException) {
+                    return response()->json([
+                        $exception->getMessage(),
+                    ], Response::HTTP_UNAUTHORIZED);
                 }
                 report($exception);
-
                 return response()->json([
                     'status' => 'error',
                     'message' => $exception->getMessage(),
                 ], Response::HTTP_INTERNAL_SERVER_ERROR);
             });
-    }
-
-    private static function checkIgnore(Throwable $exception): bool
-    {
-        foreach (self::$ignore as $ignore) {
-            if ($exception instanceof $ignore) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private static function handleNotFound(NotFoundHttpException $e): JsonResponse

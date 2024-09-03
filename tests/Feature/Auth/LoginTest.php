@@ -32,8 +32,7 @@ class LoginTest extends TestCase
             'password' => 'invalid_password',
         ]);
 
-        $response->assertUnprocessable()
-            ->assertInvalid('login');
+        $response->assertUnprocessable();
     }
 
     public function test_fail_with_invalid_email(): void
@@ -45,8 +44,7 @@ class LoginTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response->assertUnprocessable()
-            ->assertInvalid('login');
+        $response->assertUnprocessable();
     }
 
     public function test_fail_with_not_existing_email(): void
@@ -56,7 +54,6 @@ class LoginTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response->assertUnprocessable()
-            ->assertInvalid('login');
+        $response->assertUnprocessable();
     }
 }

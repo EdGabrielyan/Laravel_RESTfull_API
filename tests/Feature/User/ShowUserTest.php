@@ -25,7 +25,9 @@ class ShowUserTest extends TestCase
 
     public function test_fail_undefined_id_show_user(): void
     {
-        $response= $this->get(route($this->url, ['user' => 999]));
+        $undefined_id = 999;
+
+        $response= $this->get(route($this->url, ['user' => $undefined_id]));
 
         $response->assertNotFound();
     }

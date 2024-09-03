@@ -42,7 +42,6 @@ class RegistrationTest extends TestCase
             'password' => 'password'
         ]);
 
-        $response->assertUnprocessable()
-            ->assertInvalid('email');
+        $response->assertUnprocessable();
     }
 }

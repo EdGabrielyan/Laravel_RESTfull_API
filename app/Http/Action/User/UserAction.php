@@ -30,7 +30,7 @@ class UserAction
         return $this->userReadRepository->get($data);
     }
 
-    public function getDataById(int $id): EloquentCollection
+    public function getByIdWhereHasProduct(int $id): EloquentCollection
     {
         return $this->userReadRepository->getById($id);
     }

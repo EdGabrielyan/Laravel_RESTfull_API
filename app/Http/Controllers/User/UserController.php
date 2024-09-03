@@ -46,10 +46,10 @@ class UserController extends Controller
     public function show(int $id): JsonResponse
     {
         try {
-            return response()->json($this->userAction->getDataById($id));
+            return response()->json($this->userAction->getByIdWhereHasProduct($id));
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            throw new NotFoundException;
+            throw new ModelNotFoundException();
         }
     }
 

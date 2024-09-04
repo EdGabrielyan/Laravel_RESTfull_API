@@ -18,7 +18,7 @@ Route::group(['prefix' => 'user'], function () {
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::group(['prefix' => 'user'], function () {
-        Route::delete('/', [UserController::class, 'destroy']);
+        Route::delete('/', [UserController::class, 'destroy'])->name('api.user.destroy');
         Route::put('/', [UserController::class, 'update']);
     });
 

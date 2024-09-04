@@ -12,7 +12,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('/registration', [UserController::class, 'register'])->name('api.user.registration');
     Route::get('/{user}', [UserController::class, 'show'])->name('api.user.show');
     Route::get('/', [UserController::class, 'index'])->name('api.user.index');
-    Route::get('/name/{name}', [UserController::class, 'search']);
+    Route::get('/name/{name}', [UserController::class, 'search'])->name('api.user.search');
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {

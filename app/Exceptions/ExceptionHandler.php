@@ -19,12 +19,12 @@ class ExceptionHandler
             ->render(function (Throwable $exception) {
                 if ($exception instanceof ValidationException) {
                     return response()->json([
-                        $exception->getMessage()
+                        'message' => $exception->getMessage()
                     ], Response::HTTP_UNPROCESSABLE_ENTITY);
                 }
                 elseif ($exception instanceof AuthenticationException) {
                     return response()->json([
-                        $exception->getMessage(),
+                        'message' => $exception->getMessage(),
                     ], Response::HTTP_UNAUTHORIZED);
                 }
                 report($exception);
@@ -39,7 +39,7 @@ class ExceptionHandler
     {
         return response()->json([
             'status' => 'error',
-            'message' => 'the requested data was not found',
+            'message' => $e->getMessage(),
         ], Response::HTTP_NOT_FOUND);
     }
 }

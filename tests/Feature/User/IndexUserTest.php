@@ -23,7 +23,7 @@ class IndexUserTest extends TestCase
         $response->assertOk();
     }
 
-    public function test_fail_user_index(): void
+    public function test_fail_for_invalid_limit_and_offset(): void
     {
 
         $offset = -1;

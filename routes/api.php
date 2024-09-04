@@ -23,8 +23,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::group(['prefix' => 'category'], function () {
-        Route::get('/data', [CategoryController::class, 'getData']);
-        Route::apiResource('/', CategoryController::class)->parameters(['' => 'category']);
+        Route::get('/data', [CategoryController::class, 'getData'])->name('api.category.data');
+        Route::apiResource('/', CategoryController::class)->parameters(['' => 'category'])
+            ->name('index', 'api.category.index')
+            ->name('store', 'api.category.store');
     });
 
     Route::group(['prefix' => 'product'], function () {

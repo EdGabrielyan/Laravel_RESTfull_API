@@ -23,7 +23,7 @@ class ShowUserTest extends TestCase
         $response->assertOk();
     }
 
-    public function test_fail_undefined_id_show_user(): void
+    public function test_fail_for_undefined_id(): void
     {
         $undefined_id = 999;
 

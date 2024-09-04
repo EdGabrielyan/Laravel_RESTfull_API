@@ -21,7 +21,7 @@ class LogoutTest extends TestCase
         $response->assertOk();
     }
 
-    public function test_logout_unauthenticated(): void
+    public function test_fail_logout_for_unauthorized_user(): void
     {
         $response = $this->postJson(route($this->url));
 

@@ -26,7 +26,7 @@ class RegistrationTest extends TestCase
 
         $response->assertOk();
 
-        $this->assertDatabaseHas(User::class, [
+        $this->assertDatabaseHas('users', [
             'name' => 'name',
             'email' => $email,
         ]);

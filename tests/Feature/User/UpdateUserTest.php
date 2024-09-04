@@ -3,8 +3,6 @@
 namespace Tests\Feature\User;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
 use PHPUnit\Framework\Attributes\Group;
 use Tests\TestCase;
@@ -30,7 +28,7 @@ class UpdateUserTest extends TestCase
         ]);
     }
 
-    public function test_fail_user_update(): void
+    public function test_fail_for_unauthorized_user(): void
     {
         $response = $this->putJson(route($this->url), [
             'name' => 'Test User',

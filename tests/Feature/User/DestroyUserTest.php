@@ -23,7 +23,7 @@ class DestroyUserTest extends TestCase
         $this->assertDatabaseMissing('users', ['id' => $user->id]);
     }
 
-    public function test_fail_destroy_user(): void
+    public function test_fail_for_unauthorized_user(): void
     {
         $response = $this->deleteJson(route($this->url));
 

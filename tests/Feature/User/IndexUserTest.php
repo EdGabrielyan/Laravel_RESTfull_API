@@ -15,7 +15,7 @@ class IndexUserTest extends TestCase
         $offset = 0;
         $limit = 10;
 
-        $response = $this->get(route($this->url, [
+        $response = $this->getJson(route($this->url, [
             'offset' => $offset,
             'limit' => $limit,
         ]));
@@ -29,7 +29,7 @@ class IndexUserTest extends TestCase
         $offset = -1;
         $limit = 11;
 
-        $response = $this->get(route($this->url, [
+        $response = $this->getJson(route($this->url, [
             'offset' => $offset,
             'limit' => $limit,
         ]));

@@ -16,7 +16,7 @@ class DestroyUserTest extends TestCase
     {
         Sanctum::actingAs($user = User::factory()->create());
 
-        $response = $this->delete(route($this->url));
+        $response = $this->deleteJson(route($this->url));
 
         $response->assertOk();
 
@@ -25,8 +25,8 @@ class DestroyUserTest extends TestCase
 
     public function test_fail_destroy_user(): void
     {
-        $response = $this->delete(route($this->url));
+        $response = $this->deleteJson(route($this->url));
 
-        $response->assertInternalServerError();
+        $response->assertUnauthorized();
     }
 }

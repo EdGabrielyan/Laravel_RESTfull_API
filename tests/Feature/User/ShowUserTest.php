@@ -18,7 +18,7 @@ class ShowUserTest extends TestCase
         $product = Product::factory()->create();
         $product->user_id = $user->id;
 
-        $response = $this->get(route($this->url, ['user' => $user->id]));
+        $response = $this->getJson(route($this->url, ['user' => $user->id]));
 
         $response->assertOk();
     }
@@ -27,7 +27,7 @@ class ShowUserTest extends TestCase
     {
         $undefined_id = 999;
 
-        $response= $this->get(route($this->url, ['user' => $undefined_id]));
+        $response= $this->getJson(route($this->url, ['user' => $undefined_id]));
 
         $response->assertNotFound();
     }
